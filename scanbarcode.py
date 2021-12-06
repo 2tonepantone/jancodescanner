@@ -23,7 +23,7 @@ def read_barcodes(frame):
 
 
 def start_scan():
-    camera = cv2.VideoCapture(-1)
+    camera = cv2.VideoCapture(0)
     try:
         while True:
             scanning, frame = camera.read()
