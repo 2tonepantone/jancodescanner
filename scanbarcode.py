@@ -2,8 +2,6 @@ import cv2
 from pyzbar import pyzbar
 from productscraper.management.commands.crawl import handle_scrape
 
-print('hello from scanner')
-print(__name__)
 def read_barcodes(frame):
     global barcode_processed
     barcode_processed = False

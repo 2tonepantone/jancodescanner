@@ -1,1 +1,1 @@
-gunicorn jancodescanner.wsgi
+web: gunicorn jancodescanner.wsgi
