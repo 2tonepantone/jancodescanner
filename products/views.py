@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from productscraper.management.commands.crawl import handle_scrape
+from scanbarcode import *
 
 
 class IndexView(generic.ListView):
@@ -40,3 +41,7 @@ class ProductCreateView(View):
 
         else:
             return render(request, self.template_name, {'form': form})
+
+def scan_barcode(request):
+    main()
+    return HttpResponseRedirect(reverse('index'))

@@ -1,3 +1,8 @@
+<form method="post" action="/products/scan/">
+  {% csrf_token %}
+  <input name="scanner" type="submit" value='Scan a barcode'>
+</form>
+
 <form method="post">
   {% csrf_token %}
   {% for field in form %}
@@ -8,6 +13,6 @@
           <p class="help">{{ field.help_text|safe }}</p>
           {% endif %}
           <input type="submit" value="Submit">
-      </div>
-  {% endfor %}
+        </div>
+        {% endfor %}
 </form>
