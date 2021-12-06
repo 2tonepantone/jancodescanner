@@ -2,9 +2,10 @@ from django.db import models
 from django.urls import reverse
 from django.core.validators import MinLengthValidator
 
+
 class Product(models.Model):
-    barcode = models.CharField(
-        unique=True, max_length=13, validators=[MinLengthValidator(8)])
+    barcode = models.CharField(max_length=13, validators=[
+                               MinLengthValidator(13)])
     name = models.CharField(max_length=255)
     company_name = models.CharField(max_length=255)
     ingredients = models.CharField(max_length=255)
