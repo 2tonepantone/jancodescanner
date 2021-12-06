@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from productscraper.management.commands.crawl import handle_scrape
-from scanbarcode import *
+from scanbarcode import main
 
 
 class IndexView(generic.ListView):
