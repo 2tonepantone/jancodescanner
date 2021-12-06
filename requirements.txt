@@ -23,7 +23,7 @@ itemloaders==1.0.4
 jmespath==0.10.0
 lxml==4.6.4
 numpy==1.21.4
-opencv-python==4.5.4.60
+opencv-python-headless
 parsel==1.6.0
 Pillow==8.4.0
 priority==1.3.0
