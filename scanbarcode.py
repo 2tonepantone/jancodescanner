@@ -23,12 +23,12 @@ def read_barcodes(frame):
 
 
 def start_scan():
-    camera = cv2.VideoCapture(0)
+    camera = cv2.VideoCapture(-1)
     try:
         while True:
             scanning, frame = camera.read()
             frame = read_barcodes(frame)
-            # cv2.imshow('Barcode reader', read_barcodes(frame))
+            cv2.imshow('Barcode reader', read_barcodes(frame))
             if cv2.waitKey(1) & barcode_processed:
                 break
     except cv2.error as e:
