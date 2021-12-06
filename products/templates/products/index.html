@@ -1,11 +1,36 @@
-{% if latest_product_list %}
-  <h2>Check out the most recently added products:</h1>
-    <ul>
-    {% for product in latest_product_list %}
-        <img src="{{product.image_link}}"/>
-        <li><a href="/products/{{ product.id }}/">{{ product.name }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No products are available.</p>
-{% endif %}
+{# Load the tag library #}
+{% load bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<div class="container">
+  <h1 class="pt-4">Enter a jancode (EAN-13) barcode or scan one:</h1>
+  <form method="post" class="pt-4" action="/products/add/">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+      <input type="submit" class='btn btn-primary' value="Submit">
+    {% endbuttons %}
+  </form>
+  <form method="post" action="/products/scan/">
+    {% csrf_token %}
+    <input name="scanner" class='btn btn-primary' type="submit" value='Scan a barcode'>
+  </form>
+  <div class="row">
+  {% if products %}
+    <h2 class='my-4'>Check out the most recently added products:</h2>
+      {% for product in products %}
+          <div class="card m-3 col-4 border-0" style="width: 9rem;">
+            <img class="card-img-top" src="{{product.image_link}}" alt="product image">
+            <div class="card-body">
+              <a href="/products/{{product.id}}/" class="card-link">{{product.name}}</a>
+            </div>
+          </div>
+      {% endfor %}
+  {% else %}
+      <p>No products are available.</p>
+  {% endif %}
+  </div>
+</div>

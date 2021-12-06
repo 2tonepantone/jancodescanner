@@ -1,10 +1,11 @@
 import cv2
 from pyzbar import pyzbar
-from productscraper.management.commands.crawl import handle_scrape
 
 def read_barcodes(frame):
     global barcode_processed
     barcode_processed = False
+    global barcode_info
+    barcode_info = ''
     barcodes = pyzbar.decode(frame)
     for barcode in barcodes:
         x, y, w, h = barcode.rect
@@ -12,18 +13,16 @@ def read_barcodes(frame):
         barcode_info = barcode.data.decode('utf-8')
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
-
         font = cv2.FONT_HERSHEY_DUPLEX
         cv2.putText(frame, barcode_info, (x + 6, y - 6),
                     font, 2.0, (255, 255, 255), 1)
 
-        if (bool(barcode_info)):
-            handle_scrape(barcode_info)
+        if (len(barcode_info) == 13):
             barcode_processed = True
     return frame
 
 
-def main():
+def start_scan():
     camera = cv2.VideoCapture(0)
     try:
         while True:
@@ -37,6 +36,7 @@ def main():
 
     camera.release()
     cv2.destroyAllWindows()
+    return barcode_info
 
 if __name__ == '__main__':
-    main()
+    start_scan()

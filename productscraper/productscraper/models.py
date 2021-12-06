@@ -24,7 +24,7 @@ class Product(Base):
     __tablename__ = "products_product"
 
     id = Column(Integer, primary_key=True)
-    barcode = Column('barcode', String(13), unique=True)
+    barcode = Column('barcode', String(13))
     name = Column('name', Text())
     company_name = Column('company_name', Text())
     ingredients = Column('ingredients', Text())

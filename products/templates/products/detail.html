@@ -1,10 +1,29 @@
-<h1 style="font-size:150%">{{product.name}} details:</h1>
-  <img src="{{product.image_link}}" alt="{{product.name}} image"</img>
-  <ul>
-    <li>Barcode: {{product.barcode}}</li>
-    <li>Manufacturer: {{product.company_name}}</li>
-    <li>Ingredients: {{product.ingredients}}</li>
-    <li>Size: {{product.size}}</li>
-    <li>Categories: {{product.categories}}</li>
-    <li>Time Created: {{product.time_created}}</li>
-  </ul>
+{# Load the tag library #}
+{% load bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<div class="container">
+  <h1 class="text-center py-4" style="font-size:150%">{{product.name}} details:</h1>
+</div>
+<div class="container d-flex justify-content-center">
+  <div class="card" style="width: 20rem;">
+    <div class="card-body">
+      <img class="card-img-top" src="{{product.image_link}}" alt="{{product.name}} image">
+      <h5 class="card-title">{{product.name}}</h5>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Barcode: {{product.barcode}}</li>
+        <li class="list-group-item">Manufacturer: {{product.company_name}}</li>
+        <li class="list-group-item">Ingredients: {{product.ingredients}}</li>
+        <li class="list-group-item">Size: {{product.size}}</li>
+        <li class="list-group-item">Categories: {{product.categories}}</li>
+        <li class="list-group-item">Added: {{product.time_created}}</li>
+      </ul>
+      <div class="d-flex justify-content-center">
+        <a href="/products/" class="btn btn-outline-primary mt-3">Back</a>
+      </div>
+    </div>
+  </div>
+</div>
