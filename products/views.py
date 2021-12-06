@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from productscraper.management.commands.crawl import handle_scrape
-from scanbarcode import main
+from scanbarcode import start_scan
 
 
 def IndexView(request):
@@ -33,19 +33,24 @@ class ProductCreateView(View):
         if form.is_valid():
             barcode = form.cleaned_data['barcode']
             if Product.objects.filter(barcode=barcode):
-                product = Product.objects.filter(barcode=barcode)[0]
-                return HttpResponseRedirect(f"/products/{product.id}/")
+                return handle_redirect(barcode)
             else:
                 handle_scrape(barcode)
-                if Product.objects.filter(barcode=barcode):
-                    product = Product.objects.filter(barcode=barcode)[0]
-                    return HttpResponseRedirect(f"/products/{product.id}/")
+                return handle_redirect(barcode)
         else:
             return render(request, self.template_name, {'form': form,
                                                         'products': self.products})
 
-
 def scan_barcode(request):
     if request.POST:
-        main()
+        barcode = start_scan()
+        if Product.objects.filter(barcode=barcode):
+            return handle_redirect(barcode)
+        else:
+            handle_scrape(barcode)
+            return handle_redirect(barcode)
     return HttpResponseRedirect(reverse('index'))
+
+def handle_redirect(barcode):
+    product = Product.objects.filter(barcode=barcode)[0]
+    return HttpResponseRedirect(f"/products/{product.id}/")
