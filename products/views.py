@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from productscraper.management.commands.crawl import handle_scrape
-from scanbarcode import start_scan
+from scanbarcode import extract_barcode
 
 
 def IndexView(request):
@@ -43,7 +43,7 @@ class ProductCreateView(View):
 
 def scan_barcode(request):
     if request.POST:
-        barcode = start_scan()
+        barcode = extract_barcode()
         if Product.objects.filter(barcode=barcode):
             return handle_redirect(barcode)
         else:
