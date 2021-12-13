@@ -15,29 +15,31 @@
 </head>
 <body>
   <div class="container">
-    <h1 class="pt-4">Scan a barcode or enter one manually:</h1>
+    <h1 class="text-center pt-4">Scan a barcode or enter one manually:</h1>
     <div class="row">
-      <div class="contentarea pt-5 col-sm">
+      <div class="contentarea w-100 d-flex justify-content-center pt-5">
         <div class="camera">
           <video id="video">Video stream not available.</video>
-          <div class="d-flex align-self-center">
+          <div>
             <button id="startbutton">Start Scanning</button>
             <button class="d-none" id="stopbutton">Stop</button>
           </div>
         </div>
         <canvas id="canvas"></canvas>
       </div>
-      <form method="post" class="form-inline col-sm pt-4" action="/products/add/">
+      <form method="post" class="d-flex col-sm justify-content-center pt-4" action="/products/add/">
         {% csrf_token %}
-        {% bootstrap_form form %}
-          <input type="submit" class='btn btn-outline-primary' value="Submit">
+        {% bootstrap_form form layout='inline' %}
+        <input type="submit" class='btn btn-outline-primary' value="Submit">
       </form>
     </div>
-    <div class="row">
+  </div>
+  <div class="container-fluid">
+    <div class="row justify-content-center">
     {% if products %}
-      <h2 class='my-4'>Check out the most recently added products:</h2>
+      <h2 class='text-center my-4'>Check out the most recently added products:</h2>
         {% for product in products %}
-            <div class="card m-3 col-sm-3 border-0" style="width: 9rem;">
+            <div class="card m-2 col-sm-5 col-lg-2">
               <img class="card-img-top" src="{{product.image_link}}" alt="product image">
               <div class="card-body">
                 <a href="/products/{{product.id}}/" class="card-link">{{product.name}}</a>
