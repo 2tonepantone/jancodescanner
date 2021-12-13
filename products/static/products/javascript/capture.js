@@ -72,7 +72,7 @@
 
       const data = { 'dataURL': dataURL };
 
-      fetch('https://janscan.herokuapp.com/products/scan', {
+      fetch('https://janscan.herokuapp.com/products/scan/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
