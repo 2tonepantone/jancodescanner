@@ -1,13 +1,12 @@
-from django.http.response import HttpResponse
 from django.views import generic, View
-from products.models import Product
-from .forms import ProductForm
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
 from productscraper.management.commands.crawl import handle_scrape
+from products.models import Product
+from .forms import ProductForm
 from scanbarcode import extract_barcode
-from django.views.decorators.csrf import csrf_exempt
 import json
 
 
@@ -57,7 +56,7 @@ def scan_barcode(request):
             return handle_redirect(barcode)
     else:
         print('Failed to find/scrape product')
-        return HttpResponse(reverse('index'))
+        return HttpResponseRedirect(reverse('index'))
 
 def handle_redirect(barcode):
     product = Product.objects.filter(barcode=barcode)[0]

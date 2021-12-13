@@ -81,7 +81,8 @@
       })
         .then(response => response)
         .then(data => {
-          if (data.ok) {
+          const regex = /^http.+\/products\/\d+\/$/;
+          if (regex.test(data.url)) {
             console.log('Success:', data);
             window.location = data.url;
           } else if (picturesCount >= 10) {
