@@ -1,3 +1,4 @@
+from django.http.response import HttpResponse
 from django.views import generic, View
 from products.models import Product
 from .forms import ProductForm
@@ -6,6 +7,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from productscraper.management.commands.crawl import handle_scrape
 from scanbarcode import extract_barcode
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 
 def IndexView(request):
@@ -41,15 +44,20 @@ class ProductCreateView(View):
             return render(request, self.template_name, {'form': form,
                                                         'products': self.products})
 
+@csrf_exempt
 def scan_barcode(request):
-    if request.POST:
-        barcode = extract_barcode()
+    dataURL = json.loads(request.body.decode('utf-8'))['dataURL']
+    barcode = extract_barcode(dataURL)
+    if len(barcode) == 13:
+        print('barcode passed')
         if Product.objects.filter(barcode=barcode):
             return handle_redirect(barcode)
         else:
             handle_scrape(barcode)
             return handle_redirect(barcode)
-    return HttpResponseRedirect(reverse('index'))
+    else:
+        print('Failed to find/scrape product')
+        return HttpResponse(reverse('index'))
 
 def handle_redirect(barcode):
     product = Product.objects.filter(barcode=barcode)[0]
