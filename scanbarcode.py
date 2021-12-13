@@ -8,8 +8,9 @@ def extract_barcode(uri):
     """Returns an extracted barcode from a provided image"""
     image = data_uri_to_cv2_img(uri)
     barcodes = pyzbar.decode(image)
-    decoded = barcodes[0]
-    rect = decoded.rect
+    barcodeData = ''
+    # decoded = barcodes[0]
+    # rect = decoded.rect
     # print(rect)  # Rect(left=19, top=19, width=292, height=292)
 
     # loop over the detected barcodes
