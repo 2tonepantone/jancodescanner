@@ -36,7 +36,7 @@ def extract_barcode(uri):
     # show the output image
     # cv2.imshow("Image", image)
     # cv2.imwrite('macbook_qr_rect.jpg', image)
-    cv2.waitKey(1)
+    # cv2.waitKey(1)
     return barcodeData
 
 
