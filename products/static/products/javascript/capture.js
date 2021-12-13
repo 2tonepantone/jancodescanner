@@ -6,9 +6,6 @@
   var width = 320;    // We will scale the photo width to this
   var height = 0;     // This will be computed based on the input stream
 
-  // |streaming| indicates whether or not we're currently streaming
-  // video from the camera. Obviously, we start at false.
-
   var streaming = false;
 
   // The various HTML elements we need to configure or control. These
@@ -57,9 +54,7 @@
 
   // Capture a photo by fetching the current contents of the video
   // and drawing it into a canvas, then converting that to a JPEG
-  // format data URL. By drawing it on an offscreen canvas and then
-  // drawing that to the screen, we can change its size and/or apply
-  // other changes before drawing it.
+  // format data URL.
   let picturesCount = 1
   function takepicture() {
     var context = canvas.getContext('2d');
@@ -83,13 +78,13 @@
         .then(data => {
           const regex = /^http.+\/products\/\d+\/$/;
           if (regex.test(data.url)) {
-            console.log('Success:', data);
+            // console.log('Success:', data);
             window.location = data.url;
           } else if (picturesCount >= 10) {
             stopVideo(video);
             alert('Unable to process barcode. Please try again.');
           } else if (streaming) {
-            console.log('Failed:', data);
+            // console.log('Failed:', data);
             picturesCount++
             setTimeout(takepicture, 1000)
           }
