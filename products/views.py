@@ -47,6 +47,8 @@ class ProductCreateView(View):
 def scan_barcode(request):
     dataURL = json.loads(request.body.decode('utf-8'))['dataURL']
     barcode = extract_barcode(dataURL)
+    print("DataURL:", dataURL)
+    print("Barcode:", barcode)
     if len(barcode) == 13:
         print('barcode passed')
         if Product.objects.filter(barcode=barcode):
