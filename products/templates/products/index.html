@@ -39,7 +39,7 @@
     {% if products %}
       <h2 class='text-center my-4'>Check out the most recently added products:</h2>
         {% for product in products %}
-            <div class="card m-2 col-sm-5 col-lg-2">
+            <div class="card border-0 m-2 col-sm-5 col-lg-2">
               <img class="card-img-top" src="{{product.image_link}}" alt="product image">
               <div class="card-body">
                 <a href="/products/{{product.id}}/" class="card-link">{{product.name}}</a>
