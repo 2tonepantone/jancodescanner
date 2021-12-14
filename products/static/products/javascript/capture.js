@@ -63,7 +63,7 @@
       canvas.height = height;
       context.drawImage(video, 0, 0, width, height);
 
-      var dataURL = canvas.toDataURL('image/jpeg');
+      var dataURL = canvas.toDataURL('image/png');
 
       const data = { 'dataURL': dataURL };
 
